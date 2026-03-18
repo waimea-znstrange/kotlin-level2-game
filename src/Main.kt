@@ -2,12 +2,12 @@
  * =====================================================================
  * Programming Project for NCEA Level 2, Standard 91896
  * ---------------------------------------------------------------------
- * Project Name:   PROJECT NAME HERE
- * Project Author: PROJECT AUTHOR HERE
- * GitHub Repo:    GITHUB REPO URL HERE
+ * Project Name:   Chain Reaction
+ * Project Author: Zeb Strange
+ * GitHub Repo:    https://github.com/waimea-znstrange/kotlin-level2-game
  * ---------------------------------------------------------------------
  * Notes:
- * PROJECT NOTES HERE
+ * This is an implementation of the Chain Reaction game
  * =====================================================================
  */
 
