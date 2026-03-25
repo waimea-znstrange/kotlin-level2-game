@@ -19,7 +19,6 @@
 val boxes = mutableListOf<String>()
 val empty = ""
 
-
 fun main() {
     //Heading
     println("┏━━━━━━━━━━━━━━━━━━━━━━━┓")
@@ -30,9 +29,11 @@ fun main() {
     getUserNames()
     createBoxes()
     showBoxes()
-//    getMove()
-//    makeMove()
+    getMove()
+    makeMove()
+
 //    checkForWin()
+//    fun score()
 }
 
 
@@ -125,17 +126,27 @@ fun getUserNames() {
     println()
 }
 
-//
-//
-//fun getMove() {
+
+fun getMove() {
+    var move: String
+    while (true) {
+        println("Choose a square: ")
+        move = readln()
+        if (move.isNotBlank()) break
+    }
+}
+
+
+fun makeMove() {
+    for (i in 1..boxes.size) {
+
+    }
+}
+
+
+//fun score() {
 //
 //}
-//
-//
-//fun makeMove() {
-//
-//}
-//
 //
 //fun checkForWin() {
 //
