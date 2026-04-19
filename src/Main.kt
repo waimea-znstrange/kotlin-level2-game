@@ -19,6 +19,7 @@
 val boxes = mutableListOf<String>()
 val empty = ""
 
+
 fun main() {
     //Heading
     println("┏━━━━━━━━━━━━━━━━━━━━━━━┓")
@@ -29,7 +30,7 @@ fun main() {
     getUserNames()
     createBoxes()
     showBoxes()
-    getMove()
+    getPlayer1Move()
     makeMove()
 
 //    checkForWin()
@@ -64,6 +65,10 @@ fun showBoxes(){
     println("┗━━━━" + "┻━━━━".repeat(boxes.size - 1) + "┛")
 }
 
+var user1 = ""
+var user2 = ""
+var userSymbol1 = ""
+var userSymbol2 = ""
 
 fun getUserNames() {
     // Ask for player 1 name
@@ -77,10 +82,10 @@ fun getUserNames() {
 
     // Ask for player 1 symbol
     println("Pick a symbol:")
-    println("[1]♥")
-    println("[2]♦")
-    println("[3]♠")
-    println("[4]♣")
+    println("[1]●")
+    println("[2]■")
+    println("[3]▴")
+    println("[4]")
     println("Choice: ")
 
     var symbol1 = readln()
@@ -94,7 +99,8 @@ fun getUserNames() {
     println("$userName1 chose $symbol1 as their symbol")
     println()
     println()
-
+    user1 = userName1
+    userSymbol1 = symbol1
 
     // Ask for player 2 name
     var userName2: String
@@ -107,10 +113,10 @@ fun getUserNames() {
 
     // Ask for player 2 symbol
     println("Pick a symbol:")
-    println("[1]♡")
-    println("[2]♢")
-    println("[3]♤")
-    println("[4]♧")
+    println("[1]○")
+    println("[2]□")
+    println("[3]▵")
+    println("[4]")
     println("Choice: ")
 
     var symbol2 = readln()
@@ -124,17 +130,33 @@ fun getUserNames() {
     println("$userName2 chose $symbol2 as their symbol")
     println()
     println()
+    user2 = userName2
+    userSymbol2 = symbol2
 }
 
 
-fun getMove() {
-    var move: String
+fun getPlayer1Move() {
     while (true) {
-        println("Choose a square: ")
-        move = readln()
-        if (move.isNotBlank()) break
+        var position: Int?
+        while (true) {
+            println("$user1, choose a square: ")
+            position = readlnOrNull()?.toIntOrNull()
+            if (position != null && position in 1..12) break
+        }
+
+        val index = position!! - 1
+
+        if (boxes[index] == empty){
+            boxes[index] = userSymbol1
+            break
+        } else {
+            println("This box is taken!")
+        }
     }
 }
+//fun getPlayer2Move() {
+//
+// }
 
 
 fun makeMove() {
@@ -142,6 +164,7 @@ fun makeMove() {
 
     }
 }
+
 
 
 //fun score() {
