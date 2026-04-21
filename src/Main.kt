@@ -11,29 +11,42 @@
  * =====================================================================
  */
 
-// Box Drawings ┻ ┳ ┫ ┣ ┏ ┓ ┛ ┗ ┃ ━   ⃠
-// Player 1: ♥♦♠♣
-// Player 2: ♡♢♤♧
+// Box Drawings ┻ ┳ ┫ ┣ ┏ ┓ ┛ ┗ ┃ ━
+// Player 1: ●■▲◆
+// Player 2: ○□△◇
 
 //Global variables
 val boxes = mutableListOf<String>()
 val empty = ""
-
+var user1 = ""
+var user2 = ""
+var userSymbol1 = ""
+var userSymbol2 = ""
+var p1score = "0"
+var p2score = "0"
 
 fun main() {
     //Heading
-    println("┏━━━━━━━━━━━━━━━━━━━━━━━┓")
-    println("┃  Chain Reaction Game  ┃")
-    println("┃  By Zeb Strange       ┃")
-    println("┗━━━━━━━━━━━━━━━━━━━━━━━┛")
+    println("┏━━━━━━━━━━━━━━━━━━━━━━━┓".bgRed())
+    println("┃  Chain Reaction Game  ┃".bgMagenta())
+    println("┃  By Zeb Strange       ┃".bgBlue())
+    println("┗━━━━━━━━━━━━━━━━━━━━━━━┛".bgCyan())
 
     getUserNames()
     createBoxes()
-    showBoxes()
-    getPlayer1Move()
-    makeMove()
+    while (true) {
+        showBoxes()
+        getPlayer1Move()
+        checkForExplosion1()
+//        checkForWin()
 
-//    checkForWin()
+        showBoxes()
+        getPlayer2Move()
+//        checkForExplosion2()
+//        checkForWin()
+    }
+
+
 //    fun score()
 }
 
@@ -48,27 +61,24 @@ fun createBoxes() {
 fun showBoxes(){
     //Box labels
     for (i in 1..boxes.size) {
-        print("  $i  ")
+        print("   $i  ")
     }
     println()
 
     //Top border
-    println("┏━━━━" + "┳━━━━".repeat(boxes.size - 1) + "┓")
+    println("┏━━━━━" + "┳━━━━━".repeat(boxes.size - 1) + "┓")
 
     //Box contents
     for (box in boxes){
-        print("┃ ${box.padEnd(3)}")
+        print("┃  ${box.padEnd(3)}")
     }
     println("┃")
 
     //Bottom border
-    println("┗━━━━" + "┻━━━━".repeat(boxes.size - 1) + "┛")
+    println("┗━━━━━" + "┻━━━━━".repeat(boxes.size - 1) + "┛")
 }
 
-var user1 = ""
-var user2 = ""
-var userSymbol1 = ""
-var userSymbol2 = ""
+
 
 fun getUserNames() {
     // Ask for player 1 name
@@ -84,17 +94,17 @@ fun getUserNames() {
     println("Pick a symbol:")
     println("[1]●")
     println("[2]■")
-    println("[3]▴")
-    println("[4]")
+    println("[3]▲")
+    println("[4]◆")
     println("Choice: ")
 
     var symbol1 = readln()
 
     when {
-        symbol1 == "1" -> symbol1 = "♥"
-        symbol1 == "2" -> symbol1 = "♦"
-        symbol1 == "3" -> symbol1 = "♠"
-        symbol1 == "4" -> symbol1 = "♣"
+        symbol1 == "1" -> symbol1 = "●"
+        symbol1 == "2" -> symbol1 = "■"
+        symbol1 == "3" -> symbol1 = "▲"
+        symbol1 == "4" -> symbol1 = "◆"
     }
     println("$userName1 chose $symbol1 as their symbol")
     println()
@@ -115,17 +125,17 @@ fun getUserNames() {
     println("Pick a symbol:")
     println("[1]○")
     println("[2]□")
-    println("[3]▵")
-    println("[4]")
+    println("[3]△")
+    println("[4]◇")
     println("Choice: ")
 
     var symbol2 = readln()
 
     when {
-        symbol2 == "1" -> symbol2 = "♡"
-        symbol2 == "2" -> symbol2 = "♢"
-        symbol2 == "3" -> symbol2 = "♤"
-        symbol2 == "4" -> symbol2 = "♧"
+        symbol2 == "1" -> symbol2 = "○"
+        symbol2 == "2" -> symbol2 = "□"
+        symbol2 == "3" -> symbol2 = "△"
+        symbol2 == "4" -> symbol2 = "◇"
     }
     println("$userName2 chose $symbol2 as their symbol")
     println()
@@ -154,23 +164,38 @@ fun getPlayer1Move() {
         }
     }
 }
-//fun getPlayer2Move() {
-//
-// }
 
+fun getPlayer2Move() {
+    while (true) {
+        var position: Int?
+        while (true) {
+            println("$user2, choose a square: ")
+            position = readlnOrNull()?.toIntOrNull()
+            if (position != null && position in 1..12) break
+        }
 
-fun makeMove() {
-    for (i in 1..boxes.size) {
+        val index = position!! - 1
 
+        if (boxes[index] == empty){
+            boxes[index] = userSymbol2
+            break
+        } else {
+            println("This box is taken!")
+        }
     }
 }
 
 
+fun checkForExplosion1() {
+    var totalCounter = 0
+    var index = 6
+}
 
-//fun score() {
-//
-//}
-//
 //fun checkForWin() {
 //
 //}
+//
+//fun score() {
+//
+//}
+
