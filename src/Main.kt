@@ -61,21 +61,21 @@ fun createBoxes() {
 fun showBoxes(){
     //Box labels
     for (i in 1..boxes.size) {
-        print("   $i  ")
+        print("   $i  ".blue())
     }
     println()
 
     //Top border
-    println("┏━━━━━" + "┳━━━━━".repeat(boxes.size - 1) + "┓")
+    println("┏━━━━━".blue() + "┳━━━━━".repeat(boxes.size - 1).blue() + "┓".blue())
 
     //Box contents
     for (box in boxes){
-        print("┃  ${box.padEnd(3)}")
+        print("┃  ${box.padEnd(3)}".blue())
     }
-    println("┃")
+    println("┃".blue())
 
     //Bottom border
-    println("┗━━━━━" + "┻━━━━━".repeat(boxes.size - 1) + "┛")
+    println("┗━━━━━".blue() + "┻━━━━━".repeat(boxes.size - 1).blue() + "┛".blue())
 }
 
 
@@ -189,8 +189,18 @@ fun getPlayer2Move() {
 fun checkForExplosion1() {
     var totalCounter = 0
     var index = 6
+    while (index < 12 && boxes[index] == userSymbol1) {
+
+
+    }
 }
 
+
+//fun checkForExplosion1() {
+//
+//}
+//
+//
 //fun checkForWin() {
 //
 //}
