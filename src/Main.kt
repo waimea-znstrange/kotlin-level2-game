@@ -38,16 +38,16 @@ fun main() {
         showBoxes()
         getPlayer1Move()
         checkForExplosion1()
+        checkForDefuse1()
 //        checkForWin()
 
         showBoxes()
         getPlayer2Move()
-//        checkForExplosion2()
+        checkForExplosion2()
+//        checkForDefuse2()
 //        checkForWin()
+//        score()
     }
-
-
-//    fun score()
 }
 
 
@@ -99,7 +99,7 @@ fun getUserNames() {
     println("Choice: ")
 
     var symbol1 = readln()
-
+// change symbol1 variable to the selected symbol
     when {
         symbol1 == "1" -> symbol1 = "●"
         symbol1 == "2" -> symbol1 = "■"
@@ -130,7 +130,7 @@ fun getUserNames() {
     println("Choice: ")
 
     var symbol2 = readln()
-
+// change symbol2 variable to the selected symbol
     when {
         symbol2 == "1" -> symbol2 = "○"
         symbol2 == "2" -> symbol2 = "□"
@@ -143,8 +143,8 @@ fun getUserNames() {
     user2 = userName2
     userSymbol2 = symbol2
 }
-
-
+// make global variable for p1placement
+var placement1 = 0
 fun getPlayer1Move() {
     while (true) {
         var position: Int?
@@ -158,13 +158,15 @@ fun getPlayer1Move() {
 
         if (boxes[index] == empty){
             boxes[index] = userSymbol1
+            placement1 = position
             break
         } else {
             println("This box is taken!")
         }
     }
 }
-
+// make global variable for p2placement
+var placement2 = 0
 fun getPlayer2Move() {
     while (true) {
         var position: Int?
@@ -178,6 +180,7 @@ fun getPlayer2Move() {
 
         if (boxes[index] == empty){
             boxes[index] = userSymbol2
+            placement2 = position
             break
         } else {
             println("This box is taken!")
@@ -187,25 +190,59 @@ fun getPlayer2Move() {
 
 
 fun checkForExplosion1() {
-    var totalCounter = 0
-    var index = 6
-    while (index < 12 && boxes[index] == userSymbol1) {
-
-
+    var totalCounter = 1
+    val index = placement1 - 1
+    var right = index + 1
+    while (right < boxes.size && boxes[right] == userSymbol1) {
+        totalCounter++
+        right++
+    }
+    var left = index - 1
+    while (left >= 0 && boxes[left] == userSymbol1) {
+        totalCounter++
+        left--
+    }
+    if (totalCounter >= 3) {
+        for (placement1 in right - 1 downTo left + 1) {
+            boxes[placement1] = empty
+        }
+    println("KABOOM!")
     }
 }
 
+fun checkForExplosion2() {
+    var totalCounter = 1
+    val index = placement2 - 1
+    var right = index + 1
+    while (right < boxes.size && boxes[right] == userSymbol2) {
+        totalCounter++
+        right++
+    }
+    var left = index - 1
+    while (left >= 0 && boxes[left] == userSymbol2) {
+        totalCounter++
+        left--
+    }
+    if (totalCounter >= 3) {
+        for (placement2 in right - 1 downTo left + 1) {
+            boxes[placement2] = empty
+        }
+        println("KABOOM!")
+    }
+}
 
-//fun checkForExplosion1() {
+fun checkForDefuse1() {
+
+}
+
+//fun checkForDefuse2() {
 //
 //}
 //
+//fun score()
+//
+//}
 //
 //fun checkForWin() {
 //
 //}
-//
-//fun score() {
-//
-//}
-
