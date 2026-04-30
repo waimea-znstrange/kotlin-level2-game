@@ -44,7 +44,7 @@ fun main() {
         showBoxes()
         getPlayer2Move()
         checkForExplosion2()
-//        checkForDefuse2()
+        checkForDefuse2()
 //        checkForWin()
 //        score()
     }
@@ -202,6 +202,7 @@ fun checkForExplosion1() {
         totalCounter++
         left--
     }
+    // if total counters is 3 or more: replace the bombs for empty
     if (totalCounter >= 3) {
         for (placement1 in right - 1 downTo left + 1) {
             boxes[placement1] = empty
@@ -223,6 +224,7 @@ fun checkForExplosion2() {
         totalCounter++
         left--
     }
+    // if total counters is 3 or more: replace the bombs for empty
     if (totalCounter >= 3) {
         for (placement2 in right - 1 downTo left + 1) {
             boxes[placement2] = empty
@@ -232,7 +234,39 @@ fun checkForExplosion2() {
 }
 
 fun checkForDefuse1() {
+    val index = placement2 - 1
+    var right = index + 1
+    while (right < boxes.size && boxes[right] == userSymbol2) {
+        right++
+    }
+    var left = index - 1
+    while (left >= 0 && boxes[left] == userSymbol2) {
+        left--
+    }
+    if (boxes[right] == userSymbol1 && boxes[left] == userSymbol1) {
+        for (counter1 in right - 1 downTo left + 1) {
+            boxes[counter1] = empty
+        }
+    println("$user2's bomb defused!")
+    }
+}
 
+fun checkForDefuse2() {
+    val index = placement1 - 1
+    var right = index + 1
+    while (right < boxes.size && boxes[right] == userSymbol1) {
+        right++
+    }
+    var left = index - 1
+    while (left >= 0 && boxes[left] == userSymbol1) {
+        left--
+    }
+    if (boxes[right] == userSymbol2 && boxes[left] == userSymbol2) {
+        for (counter1 in right - 1 downTo left + 1) {
+            boxes[counter1] = empty
+        }
+        println("$user1's bomb defused!")
+    }
 }
 
 //fun checkForDefuse2() {
