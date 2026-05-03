@@ -22,8 +22,8 @@ var user1 = ""
 var user2 = ""
 var userSymbol1 = ""
 var userSymbol2 = ""
-var p1score = "0"
-var p2score = "0"
+var p1score = mutableListOf<Int>()
+var p2score = mutableListOf<Int>()
 
 fun main() {
     //Heading
@@ -38,6 +38,7 @@ fun main() {
         showBoxes()
         getPlayer1Move()
         checkForExplosion1()
+        p1score()
         checkForDefuse1()
 //        checkForWin()
 
@@ -45,8 +46,9 @@ fun main() {
         getPlayer2Move()
         checkForExplosion2()
         checkForDefuse2()
-//        checkForWin()
 //        score()
+//        checkForWin()
+
     }
 }
 
@@ -211,6 +213,10 @@ fun checkForExplosion1() {
     }
 }
 
+fun p1score() {
+    while (checkForExplosion1())
+}
+
 fun checkForExplosion2() {
     var totalCounter = 1
     val index = placement2 - 1
@@ -243,7 +249,7 @@ fun checkForDefuse1() {
     while (left >= 0 && boxes[left] == userSymbol2) {
         left--
     }
-    if (boxes[right] == userSymbol1 && boxes[left] == userSymbol1) {
+    if (right < boxes.size && left >= 0 && boxes[right] == userSymbol1 && boxes[left] == userSymbol1) {
         for (counter1 in right - 1 downTo left + 1) {
             boxes[counter1] = empty
         }
@@ -261,7 +267,7 @@ fun checkForDefuse2() {
     while (left >= 0 && boxes[left] == userSymbol1) {
         left--
     }
-    if (boxes[right] == userSymbol2 && boxes[left] == userSymbol2) {
+    if (right < boxes.size && left >= 0 && boxes[right] == userSymbol2 && boxes[left] == userSymbol2) {
         for (counter1 in right - 1 downTo left + 1) {
             boxes[counter1] = empty
         }
@@ -269,14 +275,9 @@ fun checkForDefuse2() {
     }
 }
 
-//fun checkForDefuse2() {
-//
-//}
-//
-//fun score()
-//
-//}
-//
+
+
+
 //fun checkForWin() {
 //
 //}
