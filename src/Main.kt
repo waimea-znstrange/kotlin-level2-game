@@ -191,7 +191,7 @@ fun getPlayer2Move() {
 }
 
 
-fun checkForExplosion1() {
+fun checkForExplosion1(): Int {
     var totalCounter = 1
     val index = placement1 - 1
     var right = index + 1
@@ -210,11 +210,21 @@ fun checkForExplosion1() {
             boxes[placement1] = empty
         }
     println("KABOOM!")
+    return totalCounter
     }
+    return 0
 }
 
-fun p1score() {
-    while (checkForExplosion1())
+fun p1score(): Int {
+    var score = 0
+    var exploded: Int
+
+    do {
+        exploded = checkForExplosion1()
+        score += exploded
+    } while (exploded > 0)
+    return score
+    print(p1score)
 }
 
 fun checkForExplosion2() {
