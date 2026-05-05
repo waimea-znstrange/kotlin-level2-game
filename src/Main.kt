@@ -22,8 +22,8 @@ var user1 = ""
 var user2 = ""
 var userSymbol1 = ""
 var userSymbol2 = ""
-var p1score = mutableListOf<Int>()
-var p2score = mutableListOf<Int>()
+var p1score = 0
+var p2score = 0
 
 fun main() {
     //Heading
@@ -38,16 +38,22 @@ fun main() {
         showBoxes()
         getPlayer1Move()
         checkForExplosion1()
-        p1score()
         checkForDefuse1()
-//        checkForWin()
+        if (checkForWin()) {
+            break
+        }
 
         showBoxes()
         getPlayer2Move()
         checkForExplosion2()
         checkForDefuse2()
-//        score()
-//        checkForWin()
+        println("$user1's score = $p1score")
+        println("$user2's score = $p2score")
+        if (checkForWin()) {
+            break
+        }
+
+
 
     }
 }
@@ -63,21 +69,26 @@ fun createBoxes() {
 fun showBoxes(){
     //Box labels
     for (i in 1..boxes.size) {
-        print("   $i  ".blue())
+        if (i < 10) {
+            print("   $i   ".blue())
+        }
+        else {
+            print("   $i  ".blue())
+        }
     }
     println()
 
     //Top border
-    println("┏━━━━━".blue() + "┳━━━━━".repeat(boxes.size - 1).blue() + "┓".blue())
+    println("┏━━━━━━".blue() + "┳━━━━━━".repeat(boxes.size - 1).blue() + "┓".blue())
 
     //Box contents
     for (box in boxes){
-        print("┃  ${box.padEnd(3)}".blue())
+        print("┃  ${box.padEnd(4)}".blue())
     }
     println("┃".blue())
 
     //Bottom border
-    println("┗━━━━━".blue() + "┻━━━━━".repeat(boxes.size - 1).blue() + "┛".blue())
+    println("┗━━━━━━".blue() + "┻━━━━━━".repeat(boxes.size - 1).blue() + "┛".blue())
 }
 
 
@@ -191,7 +202,8 @@ fun getPlayer2Move() {
 }
 
 
-fun checkForExplosion1(): Int {
+fun checkForExplosion1() {
+    // count the player 1 counters right
     var totalCounter = 1
     val index = placement1 - 1
     var right = index + 1
@@ -199,6 +211,7 @@ fun checkForExplosion1(): Int {
         totalCounter++
         right++
     }
+    // count the player 1 counters left
     var left = index - 1
     while (left >= 0 && boxes[left] == userSymbol1) {
         totalCounter++
@@ -206,28 +219,18 @@ fun checkForExplosion1(): Int {
     }
     // if total counters is 3 or more: replace the bombs for empty
     if (totalCounter >= 3) {
+        p1score += totalCounter
         for (placement1 in right - 1 downTo left + 1) {
             boxes[placement1] = empty
         }
-    println("KABOOM!")
-    return totalCounter
+        println("KABOOM!")
     }
-    return 0
 }
 
-fun p1score(): Int {
-    var score = 0
-    var exploded: Int
 
-    do {
-        exploded = checkForExplosion1()
-        score += exploded
-    } while (exploded > 0)
-    return score
-    print(p1score)
-}
 
 fun checkForExplosion2() {
+    // count the player 2 counters right
     var totalCounter = 1
     val index = placement2 - 1
     var right = index + 1
@@ -235,6 +238,7 @@ fun checkForExplosion2() {
         totalCounter++
         right++
     }
+    // count the player 2 counters left
     var left = index - 1
     while (left >= 0 && boxes[left] == userSymbol2) {
         totalCounter++
@@ -242,6 +246,7 @@ fun checkForExplosion2() {
     }
     // if total counters is 3 or more: replace the bombs for empty
     if (totalCounter >= 3) {
+        p2score += totalCounter
         for (placement2 in right - 1 downTo left + 1) {
             boxes[placement2] = empty
         }
@@ -251,43 +256,31 @@ fun checkForExplosion2() {
 
 fun checkForDefuse1() {
     val index = placement2 - 1
-    var right = index + 1
-    while (right < boxes.size && boxes[right] == userSymbol2) {
-        right++
-    }
-    var left = index - 1
-    while (left >= 0 && boxes[left] == userSymbol2) {
-        left--
-    }
-    if (right < boxes.size && left >= 0 && boxes[right] == userSymbol1 && boxes[left] == userSymbol1) {
-        for (counter1 in right - 1 downTo left + 1) {
-            boxes[counter1] = empty
-        }
-    println("$user2's bomb defused!")
+    if (index < boxes.size - 1 && index >= 0 && boxes[index + 1] == userSymbol1 && boxes[index - 1] == userSymbol1) {
+        boxes[index] = empty
+        println("$user2's bomb defused!")
     }
 }
 
 fun checkForDefuse2() {
     val index = placement1 - 1
-    var right = index + 1
-    while (right < boxes.size && boxes[right] == userSymbol1) {
-        right++
-    }
-    var left = index - 1
-    while (left >= 0 && boxes[left] == userSymbol1) {
-        left--
-    }
-    if (right < boxes.size && left >= 0 && boxes[right] == userSymbol2 && boxes[left] == userSymbol2) {
-        for (counter1 in right - 1 downTo left + 1) {
-            boxes[counter1] = empty
-        }
+    if (index < boxes.size - 1 && index >= 0 && boxes[index + 1] == userSymbol2 && boxes[index - 1] == userSymbol2) {
+        boxes[index] = empty
         println("$user1's bomb defused!")
     }
 }
 
 
-
-
-//fun checkForWin() {
-//
-//}
+fun checkForWin(): Boolean {
+    if (p1score >= 10) {
+        println("$user1's score = $p1score")
+        println("$user1 wins!")
+        return true
+    }
+    if (p2score >= 10) {
+        println("$user2's score = $p2score")
+        println("$user2 wins!")
+        return true
+    }
+    return false
+}

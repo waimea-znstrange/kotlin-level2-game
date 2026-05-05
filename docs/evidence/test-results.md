@@ -4,9 +4,9 @@ The test results show the actual outcome of the testing, following the [Test Pla
 
 ---
 
-## Example Test Name
+## Placing a counter - Valid
 
-Example test description. Example test description.Example test description. Example test description.Example test description. Example test description.
+The player must place a counter in an open position between the spaces of the box labeled 1 - 12
 
 ### Test Data Used
 
