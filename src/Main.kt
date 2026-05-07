@@ -32,6 +32,20 @@ fun main() {
     println("┃  By Zeb Strange       ┃".bgBlue())
     println("┗━━━━━━━━━━━━━━━━━━━━━━━┛".bgCyan())
 
+    println(" The game rules...")
+    println(" - A row of 12 squares, numbered 1 to 12 from left to right")
+    println(" - The board starts empty")
+    println(" - Both players have a supply of 'bombs' (counters) in their own colour")
+    println(" - Decide who goes first")
+    println(" - Players take turns - You may not skip your turn")
+    println(" - On your turn you must place one of your bombs on an empty square")
+    println(" - You cannot place your bomb directly between two opponent bombs since it would immediately be 'defused' (see the defuse rule below)")
+    println(" - After placing, the following rules apply (in order)")
+    println(" - Defuse rule:  if any opponent bomb now has one of your bombs on each side, it is 'defused' and removed from the board (note: two bombs can be defused in one go)")
+    println(" - Chain reaction rule: if your bomb creates an unbroken chain of 3 or more of your own bombs, the entire chain 'explodes' - all bombs in the chain are removed and you score points equal to the length of the chain")
+    println(" - The first player to reach 10 points wins")
+    println()
+
     getUserNames()
     createBoxes()
     while (true) {
@@ -165,6 +179,10 @@ fun getPlayer1Move() {
         }
 
         val index = position!! - 1
+        if (index < boxes.size - 1 && boxes[index + 1] == userSymbol2 && index >= 0 && boxes[index - 1] == userSymbol2) {
+            println("This box is taken!")
+            continue
+        }
 
         if (boxes[index] == empty){
             boxes[index] = userSymbol1
@@ -187,6 +205,10 @@ fun getPlayer2Move() {
         }
 
         val index = position!! - 1
+        if (index < boxes.size - 1 && boxes[index + 1] == userSymbol1 && index >= 0 && boxes[index - 1] == userSymbol1) {
+            println("This box is taken!")
+            continue
+        }
 
         if (boxes[index] == empty){
             boxes[index] = userSymbol2
@@ -253,7 +275,7 @@ fun checkForExplosion2() {
 
 fun checkForDefuse1() {
     val index = placement2 - 1
-    if (index < boxes.size - 1 && index >= 0 && boxes[index + 1] == userSymbol1 && boxes[index - 1] == userSymbol1) {
+    if (index < boxes.size - 1 && index > 0 && boxes[index + 1] == userSymbol1 && boxes[index - 1] == userSymbol1) {
         boxes[index] = empty
         println("$user2's bomb defused!")
     }
@@ -261,7 +283,7 @@ fun checkForDefuse1() {
 
 fun checkForDefuse2() {
     val index = placement1 - 1
-    if (index < boxes.size - 1 && index >= 0 && boxes[index + 1] == userSymbol2 && boxes[index - 1] == userSymbol2) {
+    if (index < boxes.size - 1 && index > 0 && boxes[index + 1] == userSymbol2 && boxes[index - 1] == userSymbol2) {
         boxes[index] = empty
         println("$user1's bomb defused!")
     }
