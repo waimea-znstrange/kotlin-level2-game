@@ -52,9 +52,6 @@ fun main() {
         if (checkForWin()) {
             break
         }
-
-
-
     }
 }
 

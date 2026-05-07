@@ -14,25 +14,27 @@ Details of test data. Details of test data. Details of test data. Details of tes
 
 ### Test Result
 
-![example.png](screenshots/example.png)
+![beforeplacedcounter.png](screenshots/beforeplacedcounter.png)
 
-Comment on test result. Comment on test result. Comment on test result. Comment on test result. Comment on test result. Comment on test result.
+![beforeplacedcounter.png](screenshots/placedcounter.png)
+The code checks for the user input, in this case is the number 5. The code then runs through the
+board and checks if that space is empty. If the box is empty it will put the users symbol box 5.
 
 ---
 
-## Example Test Name
+## Test if Name is Blank or Not - Invalid
 
-Example test description. Example test description.Example test description. Example test description.Example test description. Example test description.
+The user must put in a valid name.
 
 ### Test Data Used
 
-Details of test data. Details of test data. Details of test data. Details of test data. Details of test data. Details of test data. Details of test data.
+A valid name is a name that is not blank.
 
 ### Test Result
 
-![example.png](screenshots/example.png)
+![nametesting.gif](screenshots/nametesting.gif)
 
-Comment on test result. Comment on test result. Comment on test result. Comment on test result. Comment on test result. Comment on test result.
+If the users name is blank the gae will keep asking you to put in a name.
 
 ---
 
